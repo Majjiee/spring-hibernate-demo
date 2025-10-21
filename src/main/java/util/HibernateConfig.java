@@ -8,11 +8,15 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
 import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import java.util.Properties;
 
 @Configuration
+@EnableWebMvc
 @ComponentScan(basePackages = {"dao", "entities", "metier"})
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
@@ -74,4 +78,13 @@ public class HibernateConfig {
         txManager.setSessionFactory(sessionFactory().getObject());
         return txManager;
     }
+    
+    @Bean
+    public InternalResourceViewResolver viewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+
 }

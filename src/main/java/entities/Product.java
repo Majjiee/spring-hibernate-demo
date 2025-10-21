@@ -11,16 +11,17 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    private double price;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String name;
+	private double price;
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    private Category category;
-    public Product() {}
+	public Product() {
+	}
 
 	public int getId() {
 		return id;
@@ -45,11 +46,12 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-    public Category getCategory() {
-        return category;
-    }
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-    
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 }
